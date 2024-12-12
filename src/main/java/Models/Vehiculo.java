@@ -23,5 +23,4 @@ public class Vehiculo {
     public String toString() {
         return "Vehiculo [patente=" + patente + ", condicion=" + condicion + "]";
     }
-    
 }

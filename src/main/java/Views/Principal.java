@@ -10,15 +10,45 @@ package Views;
  *
  * @author eancan
  */
+import Models.Cliente;
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 public class Principal extends javax.swing.JFrame {
 
     /**
      * Creates new form Clientes
      */
     public Principal() {
+        Cliente cliente1= new Cliente("","Seleccione cliente",false);
+        Cliente cliente2= new Cliente("76255645-2","Cliente1",true);
+        Cliente cliente3= new Cliente("76255221-3","Cliente2",true);
+        Cliente cliente4= new Cliente("76255643-6","Cliente3",true);
+        
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        clientes.add(cliente1);
+        clientes.add(cliente2);
+        clientes.add(cliente3);
+        clientes.add(cliente4);
+        
         initComponents();
+        
+        /*for(clienteObj obj:clientes){
+            
+        }*/
+        lstClientes.setModel(new DefaultComboBoxModel<>(new String []{}));
+        
+        for(int i=0; i<clientes.size();i++){
+            System.out.println(clientes.get(i).getNombre()+" indice: "+ i);
+            
+            lstClientes.addItem(clientes.get(i).getNombre());
+        }
+       // lstClientes.setEnabled(rootPaneCheckingEnabled);
+        /*
         lstClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] 
-        { "Seleccione cliente", "Cliente 1", "Cliente 2" }));
+        { "Seleccione cliente", "Cliente 1", "Cliente 2" }));*/
+        
+        
         lstAutomoviles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] 
         { "Seleccione vehículo","Vehículo 1", "Vehículo 2" }));
         
@@ -209,9 +239,6 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(lstClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(51, 51, 51)
                                 .addComponent(lstAutomoviles, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPrincipalLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(btnPagarPrimeraCuota))
                     .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
                         .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblDias)
@@ -227,12 +254,15 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                                .addComponent(lblCantidadCuotas)
+                                .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
+                                        .addComponent(lblCantidadCuotas)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtCantidadCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnGuardarArriendoYMostrarCuotas))
                                 .addGap(18, 18, 18)
-                                .addComponent(txtCantidadCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnGuardarArriendoYMostrarCuotas))
-                        .addGap(18, 18, 18)
-                        .addComponent(scrlTablaCuotasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(scrlTablaCuotasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnPagarPrimeraCuota))))
                 .addContainerGap(107, Short.MAX_VALUE))
         );
         panelMenuPrincipalLayout.setVerticalGroup(
@@ -268,7 +298,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(scrlTablaCuotasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnPagarPrimeraCuota)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 83, Short.MAX_VALUE))
         );
 
         lblTituloPanel1.getAccessibleContext().setAccessibleDescription("");
@@ -331,7 +361,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_P2_vigente)
                     .addComponent(btn_P2_vigente))
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         panelPrincipal.addTab("tab2", panelMenuClientes);
@@ -407,7 +437,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPagoCuotasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lst_P3_seleccioneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_P3_seleccioneArriendo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -455,7 +485,10 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lstClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstClientesActionPerformed
-        // TODO add your handling code here:
+        // TODO add yodsfur handling code here:
+        
+        System.out.println(lstClientes.getSelectedItem());
+        System.out.println(lstClientes.getSelectedIndex());
     }//GEN-LAST:event_lstClientesActionPerformed
 
     private void lstAutomovilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstAutomovilesActionPerformed

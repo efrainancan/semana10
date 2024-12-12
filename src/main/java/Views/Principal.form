@@ -160,11 +160,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="btnPagarPrimeraCuota" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="lblDias" min="-2" max="-2" attributes="0"/>
                                   <Component id="lblFechaArriendo" min="-2" max="-2" attributes="0"/>
@@ -180,15 +176,20 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lblCantidadCuotas" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="lblCantidadCuotas" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="txtCantidadCuotas" min="-2" pref="26" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="btnGuardarArriendoYMostrarCuotas" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="txtCantidadCuotas" min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Component id="scrlTablaCuotasAPagar" min="-2" pref="222" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="btnGuardarArriendoYMostrarCuotas" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnPagarPrimeraCuota" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="scrlTablaCuotasAPagar" min="-2" pref="222" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="107" max="32767" attributes="0"/>
@@ -236,7 +237,7 @@
                               <Component id="btnPagarPrimeraCuota" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -421,7 +422,7 @@
                           <Component id="lbl_P2_vigente" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btn_P2_vigente" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="142" max="32767" attributes="0"/>
+                      <EmptySpace pref="156" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -514,7 +515,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lst_P3_seleccioneCliente" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="57" max="32767" attributes="0"/>
+                      <EmptySpace pref="71" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lbl_P3_seleccioneArriendo" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
