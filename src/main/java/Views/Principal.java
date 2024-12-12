@@ -74,23 +74,23 @@ public class Principal extends javax.swing.JFrame {
         lblMontoAPagar = new javax.swing.JLabel();
         txtDias = new javax.swing.JTextField();
         panelMenuClientes = new javax.swing.JPanel();
-        lbl_P2_Cliente = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        lbl_P2_Clientes = new javax.swing.JLabel();
+        lbl_P2_Cedula = new javax.swing.JLabel();
+        lbl_P2_Nombre = new javax.swing.JLabel();
+        txt_P2_Cedula = new javax.swing.JTextField();
+        txt_P2_Nombre = new javax.swing.JTextField();
+        lbl_P2_vigente = new javax.swing.JLabel();
+        btn_P2_vigente = new javax.swing.JToggleButton();
         panelMenuPagoCuotas = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        btn_P3_mostrarPagosArriendo = new javax.swing.JButton();
+        lbl_P3_seleccioneArriendo = new javax.swing.JLabel();
+        lst_P3_seleccioneCliente = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jButton4 = new javax.swing.JButton();
+        btn_P3_RealizarPago = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
@@ -275,21 +275,21 @@ public class Principal extends javax.swing.JFrame {
 
         panelPrincipal.addTab("tab1", panelMenuPrincipal);
 
-        lbl_P2_Cliente.setText("CLIENTES");
+        lbl_P2_Clientes.setText("CLIENTES");
 
-        jLabel8.setText("Cédula:");
+        lbl_P2_Cedula.setText("Cédula:");
 
-        jLabel9.setText("Nombre:");
+        lbl_P2_Nombre.setText("Nombre:");
 
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        txt_P2_Cedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                txt_P2_CedulaActionPerformed(evt);
             }
         });
 
-        jLabel10.setText("¿Vigente?:");
+        lbl_P2_vigente.setText("¿Vigente?:");
 
-        jToggleButton1.setText("Si");
+        btn_P2_vigente.setText("Si");
 
         javax.swing.GroupLayout panelMenuClientesLayout = new javax.swing.GroupLayout(panelMenuClientes);
         panelMenuClientes.setLayout(panelMenuClientesLayout);
@@ -300,52 +300,52 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(panelMenuClientesLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel8)
-                            .addComponent(lbl_P2_Cliente))
+                            .addComponent(lbl_P2_Nombre)
+                            .addComponent(lbl_P2_Cedula)
+                            .addComponent(lbl_P2_Clientes))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                            .addComponent(jTextField7)))
+                            .addComponent(txt_P2_Cedula, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(txt_P2_Nombre)))
                     .addGroup(panelMenuClientesLayout.createSequentialGroup()
                         .addGap(134, 134, 134)
-                        .addComponent(jLabel10)
+                        .addComponent(lbl_P2_vigente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1)))
+                        .addComponent(btn_P2_vigente)))
                 .addContainerGap(553, Short.MAX_VALUE))
         );
         panelMenuClientesLayout.setVerticalGroup(
             panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuClientesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_P2_Cliente)
+                .addComponent(lbl_P2_Clientes)
                 .addGap(31, 31, 31)
                 .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_P2_Cedula)
+                    .addComponent(txt_P2_Cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_P2_Nombre)
+                    .addComponent(txt_P2_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jToggleButton1))
+                    .addComponent(lbl_P2_vigente)
+                    .addComponent(btn_P2_vigente))
                 .addContainerGap(142, Short.MAX_VALUE))
         );
 
         panelPrincipal.addTab("tab2", panelMenuClientes);
 
-        jButton3.setText("Mostrar pagos arriendo seleccionado >>>");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_P3_mostrarPagosArriendo.setText("Mostrar pagos arriendo seleccionado >>>");
+        btn_P3_mostrarPagosArriendo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_P3_mostrarPagosArriendoActionPerformed(evt);
             }
         });
 
-        jLabel11.setText("Seleccione arriendo:");
+        lbl_P3_seleccioneArriendo.setText("Seleccione arriendo:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lst_P3_seleccioneCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -367,7 +367,7 @@ public class Principal extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable2);
 
-        jButton4.setText("Realizar Pago");
+        btn_P3_RealizarPago.setText("Realizar Pago");
 
         jLabel12.setText("PAGOS");
 
@@ -379,10 +379,10 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4))
+                        .addComponent(btn_P3_RealizarPago))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelMenuPagoCuotasLayout.createSequentialGroup()
                         .addGap(72, 72, 72)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lst_P3_seleccioneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelMenuPagoCuotasLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
@@ -390,13 +390,13 @@ public class Principal extends javax.swing.JFrame {
                             .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
-                                .addComponent(jButton3)
+                                .addComponent(btn_P3_mostrarPagosArriendo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                                 .addComponent(jCheckBox1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                                .addComponent(lbl_P3_seleccioneArriendo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel12)
                                 .addGap(98, 98, 98)))))
@@ -406,15 +406,15 @@ public class Principal extends javax.swing.JFrame {
             panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPagoCuotasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lst_P3_seleccioneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_P3_seleccioneArriendo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(jButton3))
+                        .addComponent(btn_P3_mostrarPagosArriendo))
                     .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -426,7 +426,7 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(jCheckBox1)
                                 .addGap(100, 100, 100)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
+                .addComponent(btn_P3_RealizarPago)
                 .addGap(6, 6, 6))
         );
 
@@ -466,13 +466,13 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPagarPrimeraCuotaActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void txt_P2_CedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_P2_CedulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_txt_P2_CedulaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_P3_mostrarPagosArriendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P3_mostrarPagosArriendoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btn_P3_mostrarPagosArriendoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -513,18 +513,14 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarArriendoYMostrarCuotas;
     private javax.swing.JButton btnPagarPrimeraCuota;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JToggleButton btn_P2_vigente;
+    private javax.swing.JButton btn_P3_RealizarPago;
+    private javax.swing.JButton btn_P3_mostrarPagosArriendo;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
     private javax.swing.JFrame jFrame3;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -534,18 +530,20 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblCantidadCuotas;
     private javax.swing.JLabel lblDias;
     private javax.swing.JLabel lblFechaArriendo;
     private javax.swing.JLabel lblMontoAPagar;
     private javax.swing.JLabel lblPrecioPorDia;
     private javax.swing.JLabel lblTituloPanel1;
-    private javax.swing.JLabel lbl_P2_Cliente;
+    private javax.swing.JLabel lbl_P2_Cedula;
+    private javax.swing.JLabel lbl_P2_Clientes;
+    private javax.swing.JLabel lbl_P2_Nombre;
+    private javax.swing.JLabel lbl_P2_vigente;
+    private javax.swing.JLabel lbl_P3_seleccioneArriendo;
     private javax.swing.JComboBox<String> lstAutomoviles;
     private javax.swing.JComboBox<String> lstClientes;
+    private javax.swing.JComboBox<String> lst_P3_seleccioneCliente;
     private javax.swing.JPanel panelMenuClientes;
     private javax.swing.JPanel panelMenuPagoCuotas;
     private javax.swing.JPanel panelMenuPrincipal;
@@ -557,5 +555,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField txtFechaArriendo;
     private javax.swing.JTextField txtMontoAPagar;
     private javax.swing.JTextField txtPrecioPorDia;
+    private javax.swing.JTextField txt_P2_Cedula;
+    private javax.swing.JTextField txt_P2_Nombre;
     // End of variables declaration//GEN-END:variables
 }
