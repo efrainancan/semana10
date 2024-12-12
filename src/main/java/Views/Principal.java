@@ -74,7 +74,7 @@ public class Principal extends javax.swing.JFrame {
         lblMontoAPagar = new javax.swing.JLabel();
         txtDias = new javax.swing.JTextField();
         panelMenuClientes = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        lbl_P2_Cliente = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
@@ -275,7 +275,7 @@ public class Principal extends javax.swing.JFrame {
 
         panelPrincipal.addTab("tab1", panelMenuPrincipal);
 
-        jLabel7.setText("CLIENTES");
+        lbl_P2_Cliente.setText("CLIENTES");
 
         jLabel8.setText("Cédula:");
 
@@ -302,7 +302,7 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel7))
+                            .addComponent(lbl_P2_Cliente))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
@@ -318,7 +318,7 @@ public class Principal extends javax.swing.JFrame {
             panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuClientesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
+                .addComponent(lbl_P2_Cliente)
                 .addGap(31, 31, 31)
                 .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -523,7 +523,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
@@ -544,6 +543,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lblMontoAPagar;
     private javax.swing.JLabel lblPrecioPorDia;
     private javax.swing.JLabel lblTituloPanel1;
+    private javax.swing.JLabel lbl_P2_Cliente;
     private javax.swing.JComboBox<String> lstAutomoviles;
     private javax.swing.JComboBox<String> lstClientes;
     private javax.swing.JPanel panelMenuClientes;
