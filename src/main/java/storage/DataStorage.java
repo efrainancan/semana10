@@ -26,6 +26,11 @@ public class DataStorage {
     return clientList;
   }
 
+  public List<Vehiculo> getVehiculos() {
+    return carList;
+  }
+
+
   public void addClient(Cliente cliente) {
     clientList.add(cliente);
   }

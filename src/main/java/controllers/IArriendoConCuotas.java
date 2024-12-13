@@ -1,12 +1,16 @@
 package controllers;
 
-public interface IArriendoConCuotas {
+import models.Cliente;
+import models.Vehiculo;
+import java.util.List;
 
-  void seleccionarCliente();
+public interface IArriendoConCuotas extends IClientes{
 
-  void señeccionarAutomovil();
+  List<Cliente> seleccionarCliente();
 
-  void ingresarNuevoCliente();
+  List<Vehiculo> seleccionarAutomovil();
+
+  void ingresarNuevoCliente(Cliente cliente);
 
   void guardarArriendoYMostrarCuotas();
 
