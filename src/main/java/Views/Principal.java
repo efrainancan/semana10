@@ -10,8 +10,8 @@ package Views;
  *
  * @author eancan
  */
-import Models.Cliente;
-import java.awt.Color;
+import models.Cliente;
+
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 public class Principal extends javax.swing.JFrame {
