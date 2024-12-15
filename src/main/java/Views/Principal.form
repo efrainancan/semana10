@@ -89,6 +89,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Semana 10 APP"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -121,7 +122,6 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelPrincipal" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -137,8 +137,8 @@
         <Container class="javax.swing.JPanel" name="panelMenuPrincipal">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="tab1">
-                <Property name="tabTitle" type="java.lang.String" value="tab1"/>
+              <JTabbedPaneConstraints tabName="Arriendo Cuotas">
+                <Property name="tabTitle" type="java.lang.String" value="Arriendo Cuotas"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -149,17 +149,6 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lblTituloPanel1" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lstClientes" min="-2" pref="146" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                                      <Component id="lstAutomoviles" min="-2" pref="140" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="lblDias" min="-2" max="-2" attributes="0"/>
@@ -176,23 +165,35 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="lblCantidadCuotas" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="txtCantidadCuotas" min="-2" pref="26" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="btnGuardarArriendoYMostrarCuotas" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="lblCantidadCuotas" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="scrlTablaCuotasAPagar" min="-2" pref="222" max="-2" attributes="0"/>
+                                      <Component id="txtCantidadCuotas" min="-2" pref="26" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="btnGuardarArriendoYMostrarCuotas" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="btnPagarPrimeraCuota" min="-2" max="-2" attributes="0"/>
+                                  <Component id="scrlTablaCuotasAPagar" min="-2" pref="222" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="cmbShowAgregarCliente" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cmbClientes" min="-2" pref="250" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                              <Component id="cmbCars" min="-2" pref="224" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="107" max="32767" attributes="0"/>
+                      <EmptySpace pref="95" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lblTituloPanel1" min="-2" pref="164" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -202,12 +203,14 @@
                       <Component id="lblTituloPanel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lstClientes" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lstAutomoviles" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbClientes" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbCars" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Component id="cmbShowAgregarCliente" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblFechaArriendo" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtFechaArriendo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -231,13 +234,11 @@
                                   <Component id="txtMontoAPagar" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="scrlTablaCuotasAPagar" min="-2" pref="97" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnPagarPrimeraCuota" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="scrlTablaCuotasAPagar" alignment="0" min="-2" pref="132" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
+                      <EmptySpace pref="17" max="32767" attributes="0"/>
+                      <Component id="btnPagarPrimeraCuota" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -256,6 +257,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar arriendo y mostrar cuotas &gt;&gt;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarArriendoYMostrarCuotasActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="scrlTablaCuotasAPagar">
               <AuxValues>
@@ -267,11 +271,10 @@
                 <Component class="javax.swing.JTable" name="tblCuotasAPagar">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="4">
-                        <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                      <Table columnCount="3" rowCount="0">
+                        <Column editable="false" title="Numero" type="java.lang.Integer"/>
+                        <Column editable="false" title="Valor" type="java.lang.Integer"/>
+                        <Column editable="false" title="Pagada" type="java.lang.Boolean"/>
                       </Table>
                     </Property>
                   </Properties>
@@ -288,18 +291,21 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtMontoAPagar">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="lstClientes">
+            <Component class="javax.swing.JComboBox" name="cmbClientes">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="Seleccione Cliente"/>
+                  </StringArray>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lstClientesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbClientesActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -322,14 +328,16 @@
                 <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
               </AccessibilityProperties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="lstAutomoviles">
+            <Component class="javax.swing.JComboBox" name="cmbCars">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="Seleccione Automovil"/>
+                  </StringArray>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lstAutomovilesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbCarsActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -362,13 +370,22 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtDias">
             </Component>
+            <Component class="javax.swing.JButton" name="cmbShowAgregarCliente">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agregar Cliente"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbShowAgregarClienteActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelMenuClientes">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="tab2">
-                <Property name="tabTitle" type="java.lang.String" value="tab2"/>
+              <JTabbedPaneConstraints tabName="Clientes">
+                <Property name="tabTitle" type="java.lang.String" value="Clientes"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -376,26 +393,24 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lbl_P2_Nombre" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_P2_Cedula" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_P2_Clientes" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_P2_Nombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_P2_Cedula" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txt_P2_Cedula" pref="153" max="32767" attributes="0"/>
-                                  <Component id="txt_P2_Nombre" max="32767" attributes="0"/>
+                                  <Component id="txtCedulaCliente" pref="153" max="32767" attributes="0"/>
+                                  <Component id="txtNombreCliente" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                              <Component id="lbl_P2_vigente" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btn_P2_vigente" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                              <Component id="chkClienteVigente" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnAgregarCliente" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="553" max="32767" attributes="0"/>
@@ -405,24 +420,23 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Component id="lbl_P2_Clientes" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbl_P2_Cedula" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_P2_Cedula" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCedulaCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbl_P2_Nombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_P2_Nombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNombreCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbl_P2_vigente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btn_P2_vigente" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="156" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="chkClienteVigente" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="btnAgregarCliente" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="70" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -443,30 +457,36 @@
                 <Property name="text" type="java.lang.String" value="Nombre:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txt_P2_Cedula">
+            <Component class="javax.swing.JTextField" name="txtCedulaCliente">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_P2_CedulaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCedulaClienteActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txt_P2_Nombre">
+            <Component class="javax.swing.JTextField" name="txtNombreCliente">
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_P2_vigente">
+            <Component class="javax.swing.JCheckBox" name="chkClienteVigente">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#xbf;Vigente?:"/>
+                <Property name="text" type="java.lang.String" value="Vigente?"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkClienteVigenteActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JToggleButton" name="btn_P2_vigente">
+            <Component class="javax.swing.JButton" name="btnAgregarCliente">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Si"/>
+                <Property name="text" type="java.lang.String" value="Agregar Cliente"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarClienteActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelMenuPagoCuotas">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="tab3">
-                <Property name="tabTitle" type="java.lang.String" value="tab3"/>
+              <JTabbedPaneConstraints tabName="Pagar cuotas">
+                <Property name="tabTitle" type="java.lang.String" value="Pagar cuotas"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -492,7 +512,7 @@
                                       <Component id="jScrollPane2" min="-2" pref="112" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                       <Component id="btn_P3_mostrarPagosArriendo" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="49" max="32767" attributes="0"/>
+                                      <EmptySpace pref="33" max="32767" attributes="0"/>
                                       <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jScrollPane3" min="-2" pref="231" max="-2" attributes="0"/>
@@ -515,7 +535,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lst_P3_seleccioneCliente" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="71" max="32767" attributes="0"/>
+                      <EmptySpace pref="84" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lbl_P3_seleccioneArriendo" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>

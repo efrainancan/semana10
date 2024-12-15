@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArriendoCuota extends Arriendo {
 
@@ -9,14 +10,22 @@ public class ArriendoCuota extends Arriendo {
 
   public ArriendoCuota(Integer numArriendo, String fecArr, Integer diasArriendo, Integer cantCuotas) {
     super(numArriendo, fecArr, diasArriendo);
-    this.cantCuotas = cantCuotas;
+    setCantCuotas(cantCuotas);
   }
 
+  public ArriendoCuota(Integer numArriendo, String fecArr, Integer diasArriendo, Cliente cliente, Vehiculo vehiculo, int cantCuotas) {
+    super(numArriendo, fecArr, diasArriendo, cliente, vehiculo);
+    setCantCuotas(cantCuotas);
+  }
+  
   public Integer getCantCuotas() {
     return cantCuotas;
   }
 
-  public void setCantCuotas(Integer cantCuotas) {
+  public void setCantCuotas(int cantCuotas) {
+    if (cantCuotas < 1) {
+        throw new IllegalArgumentException("Cantidad de cuotas no puede ser menor a 1");
+    }
     this.cantCuotas = cantCuotas;
   }
 
@@ -86,4 +95,8 @@ public class ArriendoCuota extends Arriendo {
     return true;
   }
 
+  public List<CuotaArriendo> getCuotasArriendo() {
+    return cuotas;
+  }
+  
 }

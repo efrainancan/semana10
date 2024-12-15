@@ -1,70 +1,32 @@
 package Views;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author eancan
  */
-import models.Cliente;
-
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import models.ArriendoCuota;
+import models.Cliente;
+import storage.DataStorage;
+
 public class Principal extends javax.swing.JFrame {
 
+    private final DataStorage storage = DataStorage.getInstance();
+    private final String DEFAULT_CLIENT_OPTION = "Seleccione Cliente";
+    private final String DEFAULT_CAR_OPTION = "Seleccione Automovil";
+    
     /**
      * Creates new form Clientes
      */
     public Principal() {
-        Cliente cliente1= new Cliente("","Seleccione cliente",false);
-        Cliente cliente2= new Cliente("76255645-2","Cliente1",true);
-        Cliente cliente3= new Cliente("76255221-3","Cliente2",true);
-        Cliente cliente4= new Cliente("76255643-6","Cliente3",true);
-        
-        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-        clientes.add(cliente1);
-        clientes.add(cliente2);
-        clientes.add(cliente3);
-        clientes.add(cliente4);
-        
         initComponents();
-        
-        /*for(clienteObj obj:clientes){
-            
-        }*/
-        lstClientes.setModel(new DefaultComboBoxModel<>(new String []{}));
-        
-        for(int i=0; i<clientes.size();i++){
-            System.out.println(clientes.get(i).getNombre()+" indice: "+ i);
-            
-            lstClientes.addItem(clientes.get(i).getNombre());
-        }
-       // lstClientes.setEnabled(rootPaneCheckingEnabled);
-        /*
-        lstClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] 
-        { "Seleccione cliente", "Cliente 1", "Cliente 2" }));*/
-        
-        
-        lstAutomoviles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] 
-        { "Seleccione vehículo","Vehículo 1", "Vehículo 2" }));
-        
-        tblCuotasAPagar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-               
-            },
-            new String [] {
-                "Número", "Valor", "¿Pagado?"
-            }
-        ));
-        panelPrincipal.addTab("Menú principal", panelMenuPrincipal);       
-        panelPrincipal.addTab("Ingreso cliente", panelMenuClientes);
-        panelPrincipal.addTab("Pago de cuotas", panelMenuPagoCuotas);
-
-        
+        renderCmbClientes();
+        renderCmbAutomovil();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -94,23 +56,24 @@ public class Principal extends javax.swing.JFrame {
         tblCuotasAPagar = new javax.swing.JTable();
         btnPagarPrimeraCuota = new javax.swing.JButton();
         txtMontoAPagar = new javax.swing.JTextField();
-        lstClientes = new javax.swing.JComboBox<>();
+        cmbClientes = new javax.swing.JComboBox<>();
         lblTituloPanel1 = new javax.swing.JLabel();
-        lstAutomoviles = new javax.swing.JComboBox<>();
+        cmbCars = new javax.swing.JComboBox<>();
         lblFechaArriendo = new javax.swing.JLabel();
         txtFechaArriendo = new javax.swing.JTextField();
         lblDias = new javax.swing.JLabel();
         lblPrecioPorDia = new javax.swing.JLabel();
         lblMontoAPagar = new javax.swing.JLabel();
         txtDias = new javax.swing.JTextField();
+        cmbShowAgregarCliente = new javax.swing.JButton();
         panelMenuClientes = new javax.swing.JPanel();
         lbl_P2_Clientes = new javax.swing.JLabel();
         lbl_P2_Cedula = new javax.swing.JLabel();
         lbl_P2_Nombre = new javax.swing.JLabel();
-        txt_P2_Cedula = new javax.swing.JTextField();
-        txt_P2_Nombre = new javax.swing.JTextField();
-        lbl_P2_vigente = new javax.swing.JLabel();
-        btn_P2_vigente = new javax.swing.JToggleButton();
+        txtCedulaCliente = new javax.swing.JTextField();
+        txtNombreCliente = new javax.swing.JTextField();
+        chkClienteVigente = new javax.swing.JCheckBox();
+        btnAgregarCliente = new javax.swing.JButton();
         panelMenuPagoCuotas = new javax.swing.JPanel();
         btn_P3_mostrarPagosArriendo = new javax.swing.JButton();
         lbl_P3_seleccioneArriendo = new javax.swing.JLabel();
@@ -169,22 +132,40 @@ public class Principal extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Semana 10 APP");
 
         lblCantidadCuotas.setText("Cantidad de cuotas");
 
         btnGuardarArriendoYMostrarCuotas.setText("Guardar arriendo y mostrar cuotas >>");
+        btnGuardarArriendoYMostrarCuotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarArriendoYMostrarCuotasActionPerformed(evt);
+            }
+        });
 
         tblCuotasAPagar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Numero", "Valor", "Pagada"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         scrlTablaCuotasAPagar.setViewportView(tblCuotasAPagar);
 
         btnPagarPrimeraCuota.setLabel("Pagar Primera Cuota");
@@ -194,12 +175,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        txtMontoAPagar.setEditable(false);
         txtMontoAPagar.setToolTipText("");
 
-        lstClientes.setToolTipText("");
-        lstClientes.addActionListener(new java.awt.event.ActionListener() {
+        cmbClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Cliente" }));
+        cmbClientes.setToolTipText("");
+        cmbClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lstClientesActionPerformed(evt);
+                cmbClientesActionPerformed(evt);
             }
         });
 
@@ -208,9 +191,10 @@ public class Principal extends javax.swing.JFrame {
         lblTituloPanel1.setMinimumSize(new java.awt.Dimension(122, 16));
         lblTituloPanel1.setPreferredSize(new java.awt.Dimension(122, 16));
 
-        lstAutomoviles.addActionListener(new java.awt.event.ActionListener() {
+        cmbCars.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Automovil" }));
+        cmbCars.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lstAutomovilesActionPerformed(evt);
+                cmbCarsActionPerformed(evt);
             }
         });
 
@@ -224,6 +208,14 @@ public class Principal extends javax.swing.JFrame {
 
         lblMontoAPagar.setText("Monto a pagar");
 
+        cmbShowAgregarCliente.setText("Agregar Cliente");
+        cmbShowAgregarCliente.setToolTipText("");
+        cmbShowAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbShowAgregarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMenuPrincipalLayout = new javax.swing.GroupLayout(panelMenuPrincipal);
         panelMenuPrincipal.setLayout(panelMenuPrincipalLayout);
         panelMenuPrincipalLayout.setHorizontalGroup(
@@ -231,14 +223,6 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTituloPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                                .addComponent(lstClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51)
-                                .addComponent(lstAutomoviles, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
                         .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblDias)
@@ -254,16 +238,26 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                                .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                                        .addComponent(lblCantidadCuotas)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtCantidadCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(btnGuardarArriendoYMostrarCuotas))
+                                .addComponent(lblCantidadCuotas)
                                 .addGap(18, 18, 18)
-                                .addComponent(scrlTablaCuotasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnPagarPrimeraCuota))))
-                .addContainerGap(107, Short.MAX_VALUE))
+                                .addComponent(txtCantidadCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnGuardarArriendoYMostrarCuotas))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPagarPrimeraCuota)
+                            .addComponent(scrlTablaCuotasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmbShowAgregarCliente)
+                            .addComponent(cmbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52)
+                        .addComponent(cmbCars, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(95, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPrincipalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTituloPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelMenuPrincipalLayout.setVerticalGroup(
             panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,9 +265,11 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(lblTituloPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lstClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lstAutomoviles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addComponent(cmbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbCars, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(cmbShowAgregarCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
                         .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -294,16 +290,15 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(panelMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblMontoAPagar)
                             .addComponent(txtMontoAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelMenuPrincipalLayout.createSequentialGroup()
-                        .addComponent(scrlTablaCuotasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPagarPrimeraCuota)))
-                .addGap(0, 83, Short.MAX_VALUE))
+                    .addComponent(scrlTablaCuotasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(btnPagarPrimeraCuota)
+                .addGap(49, 49, 49))
         );
 
         lblTituloPanel1.getAccessibleContext().setAccessibleDescription("");
 
-        panelPrincipal.addTab("tab1", panelMenuPrincipal);
+        panelPrincipal.addTab("Arriendo Cuotas", panelMenuPrincipal);
 
         lbl_P2_Clientes.setText("CLIENTES");
 
@@ -311,60 +306,68 @@ public class Principal extends javax.swing.JFrame {
 
         lbl_P2_Nombre.setText("Nombre:");
 
-        txt_P2_Cedula.addActionListener(new java.awt.event.ActionListener() {
+        txtCedulaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_P2_CedulaActionPerformed(evt);
+                txtCedulaClienteActionPerformed(evt);
             }
         });
 
-        lbl_P2_vigente.setText("¿Vigente?:");
+        chkClienteVigente.setText("Vigente?");
+        chkClienteVigente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkClienteVigenteActionPerformed(evt);
+            }
+        });
 
-        btn_P2_vigente.setText("Si");
+        btnAgregarCliente.setText("Agregar Cliente");
+        btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelMenuClientesLayout = new javax.swing.GroupLayout(panelMenuClientes);
         panelMenuClientes.setLayout(panelMenuClientesLayout);
         panelMenuClientesLayout.setHorizontalGroup(
             panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuClientesLayout.createSequentialGroup()
-                .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(19, 19, 19)
+                .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelMenuClientesLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
                         .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbl_P2_Nombre)
-                            .addComponent(lbl_P2_Cedula)
-                            .addComponent(lbl_P2_Clientes))
+                            .addComponent(lbl_P2_Clientes)
+                            .addComponent(lbl_P2_Nombre, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_P2_Cedula, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_P2_Cedula, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                            .addComponent(txt_P2_Nombre)))
-                    .addGroup(panelMenuClientesLayout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(lbl_P2_vigente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_P2_vigente)))
+                            .addComponent(txtCedulaCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(txtNombreCliente)))
+                    .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(chkClienteVigente)
+                        .addComponent(btnAgregarCliente)))
                 .addContainerGap(553, Short.MAX_VALUE))
         );
         panelMenuClientesLayout.setVerticalGroup(
             panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMenuClientesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addComponent(lbl_P2_Clientes)
-                .addGap(31, 31, 31)
+                .addGap(43, 43, 43)
                 .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_P2_Cedula)
-                    .addComponent(txt_P2_Cedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtCedulaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_P2_Nombre)
-                    .addComponent(txt_P2_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(panelMenuClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_P2_vigente)
-                    .addComponent(btn_P2_vigente))
-                .addContainerGap(156, Short.MAX_VALUE))
+                    .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(chkClienteVigente)
+                .addGap(44, 44, 44)
+                .addComponent(btnAgregarCliente)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        panelPrincipal.addTab("tab2", panelMenuClientes);
+        panelPrincipal.addTab("Clientes", panelMenuClientes);
 
         btn_P3_mostrarPagosArriendo.setText("Mostrar pagos arriendo seleccionado >>>");
         btn_P3_mostrarPagosArriendo.addActionListener(new java.awt.event.ActionListener() {
@@ -421,7 +424,7 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
                                 .addComponent(btn_P3_mostrarPagosArriendo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                                 .addComponent(jCheckBox1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -437,7 +440,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPagoCuotasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lst_P3_seleccioneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_P3_seleccioneArriendo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -460,7 +463,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
-        panelPrincipal.addTab("tab3", panelMenuPagoCuotas);
+        panelPrincipal.addTab("Pagar cuotas", panelMenuPagoCuotas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -475,8 +478,7 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelPrincipal)
-                .addGap(35, 35, 35))
+                .addComponent(panelPrincipal))
         );
 
         panelPrincipal.getAccessibleContext().setAccessibleName("Menú principal");
@@ -484,71 +486,182 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lstClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstClientesActionPerformed
+    private void cmbClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClientesActionPerformed
         // TODO add yodsfur handling code here:
-        
-        System.out.println(lstClientes.getSelectedItem());
-        System.out.println(lstClientes.getSelectedIndex());
-    }//GEN-LAST:event_lstClientesActionPerformed
+        System.out.println(cmbClientes.getSelectedItem());
+        System.out.println(cmbClientes.getSelectedIndex());
+    }//GEN-LAST:event_cmbClientesActionPerformed
 
-    private void lstAutomovilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lstAutomovilesActionPerformed
+    private void cmbCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCarsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lstAutomovilesActionPerformed
+    }//GEN-LAST:event_cmbCarsActionPerformed
 
     private void btnPagarPrimeraCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarPrimeraCuotaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPagarPrimeraCuotaActionPerformed
 
-    private void txt_P2_CedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_P2_CedulaActionPerformed
+    private void txtCedulaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_P2_CedulaActionPerformed
+    }//GEN-LAST:event_txtCedulaClienteActionPerformed
 
     private void btn_P3_mostrarPagosArriendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P3_mostrarPagosArriendoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_P3_mostrarPagosArriendoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void cmbShowAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbShowAgregarClienteActionPerformed
+        panelPrincipal.setSelectedIndex(1);
+    }//GEN-LAST:event_cmbShowAgregarClienteActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
+    private void chkClienteVigenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkClienteVigenteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chkClienteVigenteActionPerformed
+
+    private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
+        String cedula = txtCedulaCliente.getText().trim();
+       
+        if (cedula.isBlank()) {
+            showError("Campo cedula no puede estar vacio");
+            return;
+        }
+        
+        String nombre = txtNombreCliente.getText().trim();
+        if (nombre.isBlank()) {
+            showError("Campo nombre no puede estar vacio");
+            return;
+        }
+        
+        if (storage.clienteExiste(cedula)) {
+            showError("Ya existe un cliente registrado con numero de cedula ingreado");
+            return;
+        }
+        
+        Cliente cliente = new Cliente(cedula, nombre, chkClienteVigente.isSelected());
+        storage.addClient(cliente);
+        txtCedulaCliente.setText("");
+        txtNombreCliente.setText("");
+        chkClienteVigente.setSelected(false);
+        renderCmbClientes();
+        panelPrincipal.setSelectedIndex(0);
+        showMessage( "Cliente registrado con exito");
+    }//GEN-LAST:event_btnAgregarClienteActionPerformed
+
+    private void btnGuardarArriendoYMostrarCuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarArriendoYMostrarCuotasActionPerformed
+        var selectedClient = (String)cmbClientes.getSelectedItem();
+        if (DEFAULT_CLIENT_OPTION.equals(selectedClient)) {
+            showError("Debe seleccionar un cliente");
+            return;
+        }
+        
+        var selectedCar = (String)cmbCars.getSelectedItem();
+        if (DEFAULT_CAR_OPTION.equals(selectedCar)) {
+            showError("Debe seleccionar un automovil");
+            return;
+        }
+        
+        int id = storage.getArriendoCuotaNextSeq();
+        String fechaArriendo = txtFechaArriendo.getText().trim();
+        int diasArriendo = getAsInt(txtDias);
+        if (diasArriendo == -1) {
+            showError("Dias arriendo debe ser numerico");
+            return;
+        }
+        
+        int cantidadCuotas = getAsInt(txtCantidadCuotas);
+        if (cantidadCuotas == -1) {
+            showError("Cantidad de cuotas debe ser numerico");
+            return;
+        }
+        
+        int precioPorDia = getAsInt(txtPrecioPorDia);
+        if (precioPorDia == -1) {
+            showError("Precio por dia debe ser numerico");
+            return;
+        }
+        
+        var cliente = storage.findClient(selectedClient.split(" ")[0]);
+        var vehiculo = storage.findCar(selectedCar.split(" ")[0]);
+
+        var arriendoCuota = new ArriendoCuota(id, fechaArriendo, diasArriendo, cliente, vehiculo, cantidadCuotas);
+        
+        if (!arriendoCuota.ingresarArriendoConCuota(precioPorDia)) {
+            showError("La evaluacion no se ha completado correctamente.");
+            return;
+        }
+        
+        storage.addArriendoCuotaList(arriendoCuota);
+        
+        var cuotas = arriendoCuota.getCuotasArriendo();
+        var tblModel = (DefaultTableModel) tblCuotasAPagar.getModel();
+        tblModel.setRowCount(0);
+
+        for (var cuota: cuotas) {
+            var rowData = new Object[] { cuota.getNumCuota(), cuota.getValorCuota(), cuota.getPagada() };
+            tblModel.addRow(rowData);
+        }
+
+        /*
+        cmbClientes.setSelectedIndex(0);
+        cmbCars.setSelectedIndex(0);
+        txtFechaArriendo.setText("");
+        txtDias.setText("");
+        txtCantidadCuotas.setText("");
+        txtPrecioPorDia.setText("");
+        */
+        renderCmbClientes();
+        renderCmbAutomovil();
+        txtMontoAPagar.setText(String.valueOf(arriendoCuota.obtenerMontoAPagar(precioPorDia)));
+        showMessage("Arriendo coutas guardado correctamente");
+    }//GEN-LAST:event_btnGuardarArriendoYMostrarCuotasActionPerformed
+    
+    private int getAsInt(JTextField field) {
+        try {
+            var value = field.getText().trim();
+            System.out.println("value: " + value);
+            return Integer.parseInt(value);
+        } catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+            return -1;
+        }
+    }
+
+    private void renderCmbClientes() {
+        var items = storage.getClientes().stream()
+            .map(c -> c.getCedula() + " - " + c.getNombre() +  " - " + (c.isVigente() ?  "Vigente" : " No Vigente"))
+            .toList();
+        var options = new ArrayList<String>();
+        options.add(DEFAULT_CLIENT_OPTION);
+        options.addAll(items);
+        cmbClientes.setModel(new DefaultComboBoxModel<>(options.toArray(String[]::new)));
+    }
+    
+    private void renderCmbAutomovil() {
+        var items = storage.getVehiculos().stream()
+                .map(v -> v.getPatente()+ " - " + v.getCondicion())
+                .toList();
+        var options = new ArrayList<String>();
+        options.add(DEFAULT_CAR_OPTION);
+        options.addAll(items);
+        cmbCars.setModel(new DefaultComboBoxModel<>(options.toArray(String[]::new)));
+    }
+    
+    protected void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    protected void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Aviso", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarCliente;
     private javax.swing.JButton btnGuardarArriendoYMostrarCuotas;
     private javax.swing.JButton btnPagarPrimeraCuota;
-    private javax.swing.JToggleButton btn_P2_vigente;
     private javax.swing.JButton btn_P3_RealizarPago;
     private javax.swing.JButton btn_P3_mostrarPagosArriendo;
+    private javax.swing.JCheckBox chkClienteVigente;
+    private javax.swing.JComboBox<String> cmbCars;
+    private javax.swing.JComboBox<String> cmbClientes;
+    private javax.swing.JButton cmbShowAgregarCliente;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
@@ -572,10 +685,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_P2_Cedula;
     private javax.swing.JLabel lbl_P2_Clientes;
     private javax.swing.JLabel lbl_P2_Nombre;
-    private javax.swing.JLabel lbl_P2_vigente;
     private javax.swing.JLabel lbl_P3_seleccioneArriendo;
-    private javax.swing.JComboBox<String> lstAutomoviles;
-    private javax.swing.JComboBox<String> lstClientes;
     private javax.swing.JComboBox<String> lst_P3_seleccioneCliente;
     private javax.swing.JPanel panelMenuClientes;
     private javax.swing.JPanel panelMenuPagoCuotas;
@@ -584,11 +694,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrlTablaCuotasAPagar;
     private javax.swing.JTable tblCuotasAPagar;
     private javax.swing.JTextField txtCantidadCuotas;
+    private javax.swing.JTextField txtCedulaCliente;
     private javax.swing.JTextField txtDias;
     private javax.swing.JTextField txtFechaArriendo;
     private javax.swing.JTextField txtMontoAPagar;
+    private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtPrecioPorDia;
-    private javax.swing.JTextField txt_P2_Cedula;
-    private javax.swing.JTextField txt_P2_Nombre;
     // End of variables declaration//GEN-END:variables
 }

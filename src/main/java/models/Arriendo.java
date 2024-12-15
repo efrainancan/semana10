@@ -28,7 +28,15 @@ public class Arriendo {
 
   // se ejecuta antes de guardar un arriendo al sistema
   public boolean evaluarArriendo() {
-    return cliente.isVigente() && vehiculo.getCondicion().equals('D');
+    boolean clienteVigente = cliente.isVigente();
+    if (!clienteVigente) {
+       System.out.println("Cliente no esta vigente");
+    }
+    boolean vehiculoDisponible = vehiculo.getCondicion().equals('D');
+    if (!vehiculoDisponible) {
+        System.out.println("Vehiculo no esta disponible");
+    }
+    return clienteVigente && vehiculoDisponible;
   }
 
   public Integer getNumArriendo() {
