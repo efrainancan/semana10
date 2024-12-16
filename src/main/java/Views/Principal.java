@@ -4,6 +4,8 @@ package Views;
  *
  * @author eancan
  */
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -16,6 +18,8 @@ import storage.DataStorage;
 
 public class Principal extends javax.swing.JFrame {
 
+    private static final String VIEW_SEPARATOR = " - ";
+    
     private final DataStorage storage = DataStorage.getInstance();
     private final String DEFAULT_CLIENT_OPTION = "Seleccione Cliente";
     private final String DEFAULT_CAR_OPTION = "Seleccione Automovil";
@@ -86,7 +90,7 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         listArriendos = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblPagos = new javax.swing.JTable();
         btn_P3_RealizarPago = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -392,7 +396,7 @@ public class Principal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(listArriendos);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblPagos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -404,7 +408,7 @@ public class Principal extends javax.swing.JFrame {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -415,9 +419,14 @@ public class Principal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(tblPagos);
 
         btn_P3_RealizarPago.setText("Realizar Pago");
+        btn_P3_RealizarPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_P3_RealizarPagoActionPerformed(evt);
+            }
+        });
 
         jLabel12.setText("PAGOS");
 
@@ -507,9 +516,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClientesActionPerformed
-        // TODO add yodsfur handling code here:
-        System.out.println(cmbClientes.getSelectedItem());
-        System.out.println(cmbClientes.getSelectedIndex());
+
     }//GEN-LAST:event_cmbClientesActionPerformed
 
     private void cmbCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCarsActionPerformed
@@ -517,7 +524,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCarsActionPerformed
 
     private void btnPagarPrimeraCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarPrimeraCuotaActionPerformed
-        // TODO add your handling code here:
+        panelPrincipal.setSelectedIndex(2);
     }//GEN-LAST:event_btnPagarPrimeraCuotaActionPerformed
 
     private void txtCedulaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaClienteActionPerformed
@@ -525,7 +532,19 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCedulaClienteActionPerformed
 
     private void btn_P3_mostrarPagosArriendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P3_mostrarPagosArriendoActionPerformed
-        // TODO add your handling code here:
+        int numArriendo = getNumArriendoActual();
+        if (numArriendo == -1) {
+            return;
+        }
+        var cuotaArriendo = storage.getArriendoCuota(numArriendo);
+        var tblModel = (DefaultTableModel) tblPagos.getModel();
+        tblModel.setRowCount(0);
+        for (var cuota : cuotaArriendo.getCuotasArriendo()) {
+            tblModel.addRow(new Object[]{
+                cuota.getPagada(), cuota.getNumCuota(), cuota.getValorCuota(), cuota.getPagada()
+            });
+        }
+        
     }//GEN-LAST:event_btn_P3_mostrarPagosArriendoActionPerformed
 
     private void cmbShowAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbShowAgregarClienteActionPerformed
@@ -584,6 +603,12 @@ public class Principal extends javax.swing.JFrame {
         
         int id = storage.getArriendoCuotaNextSeq();
         String fechaArriendo = txtFechaArriendo.getText().trim();
+        
+        if (!isValidDate(fechaArriendo, "dd-MM-yyyy")) {
+            showError("Fecha debe estar en formato dd-MM-yyyy");
+            return;
+        }
+        
         int diasArriendo = getAsInt(txtDias);
         if (diasArriendo == -1) {
             showError("Dias arriendo debe ser numerico");
@@ -642,17 +667,42 @@ public class Principal extends javax.swing.JFrame {
         String selectedClient = (String) cmbClienteArriendo.getSelectedItem();
         modeloDatos.removeAllElements();
         
+        var tblModel = (DefaultTableModel) tblPagos.getModel();
+        tblModel.setRowCount(0);
+
         if (DEFAULT_CLIENT_OPTION.equals(selectedClient)) {
             return;
         }
         
-        String cedula = selectedClient.split(" - ") [0];
+        String cedula = selectedClient.split(VIEW_SEPARATOR) [0];
         var arriendos = storage.getArriendosByclient(cedula).stream()
-                .map(e -> e.getNumArriendo() + " - " + e.getVehiculo().getPatente())
+                .map(e -> e.getNumArriendo() + VIEW_SEPARATOR + e.getVehiculo().getPatente())
                 .toList();
         
         modeloDatos.addAll(arriendos);
     }//GEN-LAST:event_cmbClienteArriendoActionPerformed
+
+    private void btn_P3_RealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_P3_RealizarPagoActionPerformed
+        int numArriendo = getNumArriendoActual();
+        if (numArriendo == -1) {
+            return;
+        }
+        var arriendoCuota = storage.getArriendoCuota(numArriendo);
+        var tblModel = (DefaultTableModel) tblPagos.getModel();
+        for (int i=0; i < tblModel.getRowCount(); i++) {
+            System.out.println("value: " + tblModel.getValueAt(i, 0).toString());
+            boolean isPaid = Boolean.parseBoolean(tblModel.getValueAt(i, 0).toString());
+            if (isPaid) {
+                var cuota = Integer.parseInt(tblModel.getValueAt(i, 1).toString());
+                System.out.println("Pagando cuota numero: " + cuota);
+                if (!arriendoCuota.pagarCuota(cuota)) {
+                    showError("no se pudo realizar el pago de la cuota numero: " + cuota);
+                    return;
+                }
+            }
+        }
+        showMessage("Pago de cuotas realizado exitosamente.");
+    }//GEN-LAST:event_btn_P3_RealizarPagoActionPerformed
     
     private int getAsInt(JTextField field) {
         try {
@@ -666,7 +716,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void renderCmbClientes() {
         var items = storage.getClientes().stream()
-            .map(c -> c.getCedula() + " - " + c.getNombre() +  " - " + (c.isVigente() ?  "Vigente" : " No Vigente"))
+            .map(c -> c.getCedula() + VIEW_SEPARATOR + c.getNombre() +  VIEW_SEPARATOR + (c.isVigente() ?  "Vigente" : " No Vigente"))
             .toList();
         var options = new ArrayList<String>();
         options.add(DEFAULT_CLIENT_OPTION);
@@ -677,7 +727,7 @@ public class Principal extends javax.swing.JFrame {
     private void renderCmbClientesArriendo() {
         var items = storage.getArriendoCuotaList().stream()
             .map(ArriendoCuota::getCliente)
-            .map(c -> c.getCedula() + " - " + c.getNombre())
+            .map(c -> c.getCedula() + VIEW_SEPARATOR + c.getNombre())
             .distinct()
             .toList();
         var options = new ArrayList<String>();
@@ -688,7 +738,7 @@ public class Principal extends javax.swing.JFrame {
     
     private void renderCmbAutomovil() {
         var items = storage.getVehiculos().stream()
-                .map(v -> v.getPatente()+ " - " + v.getCondicion())
+                .map(v -> v.getPatente()+ VIEW_SEPARATOR + v.getCondicion())
                 .toList();
         var options = new ArrayList<String>();
         options.add(DEFAULT_CAR_OPTION);
@@ -696,6 +746,23 @@ public class Principal extends javax.swing.JFrame {
         cmbCars.setModel(new DefaultComboBoxModel<>(options.toArray(String[]::new)));
     }
     
+    private int getNumArriendoActual() {
+        String selectedClient = (String) cmbClienteArriendo.getSelectedItem();
+        
+        if (DEFAULT_CLIENT_OPTION.equals(selectedClient)) {
+            showError("Debe seleccionar un cliente");
+            return -1;
+        }
+        
+        String arriendo = listArriendos.getSelectedValue();
+        if (arriendo == null || arriendo.isBlank()) {
+            showError("Debe seleccionar el arriendo a cancelar");
+            return -1;
+        }
+        
+        return Integer.parseInt(arriendo.split(VIEW_SEPARATOR)[0]);
+    }
+
     protected void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -704,6 +771,16 @@ public class Principal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, message, "Aviso", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public boolean isValidDate(String d, String dateFormat) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
+        try {
+            dtf.parse(d);
+        } catch (DateTimeParseException ex) {
+            return false;
+        }
+        return true;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCliente;
     private javax.swing.JButton btnGuardarArriendoYMostrarCuotas;
@@ -727,7 +804,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCantidadCuotas;
     private javax.swing.JLabel lblDias;
     private javax.swing.JLabel lblFechaArriendo;
@@ -745,6 +821,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane panelPrincipal;
     private javax.swing.JScrollPane scrlTablaCuotasAPagar;
     private javax.swing.JTable tblCuotasAPagar;
+    private javax.swing.JTable tblPagos;
     private javax.swing.JTextField txtCantidadCuotas;
     private javax.swing.JTextField txtCedulaCliente;
     private javax.swing.JTextField txtDias;

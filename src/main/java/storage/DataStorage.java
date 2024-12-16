@@ -80,4 +80,11 @@ public class DataStorage {
               .toList();
   }
   
+  public ArriendoCuota getArriendoCuota(int numArriendo) {
+      return arriendoCuotaList.stream()
+        .filter(e -> e.getNumArriendo() == numArriendo)
+        .findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("numero de arriendo no encontrado"));
+  }
+  
 }
