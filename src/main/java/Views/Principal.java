@@ -6,6 +6,7 @@ package Views;
  */
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,8 @@ public class Principal extends javax.swing.JFrame {
     private final String DEFAULT_CLIENT_OPTION = "Seleccione Cliente";
     private final String DEFAULT_CAR_OPTION = "Seleccione Automovil";
     
+    private DefaultListModel<String> modeloDatos;
+    
     /**
      * Creates new form Clientes
      */
@@ -27,6 +30,8 @@ public class Principal extends javax.swing.JFrame {
         renderCmbClientes();
         renderCmbAutomovil();
         setLocationRelativeTo(null);
+        modeloDatos = new DefaultListModel<>();
+        listArriendos.setModel(modeloDatos);
     }
 
     /**
@@ -77,14 +82,14 @@ public class Principal extends javax.swing.JFrame {
         panelMenuPagoCuotas = new javax.swing.JPanel();
         btn_P3_mostrarPagosArriendo = new javax.swing.JButton();
         lbl_P3_seleccioneArriendo = new javax.swing.JLabel();
-        lst_P3_seleccioneCliente = new javax.swing.JComboBox<>();
+        cmbClienteArriendo = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listArriendos = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jCheckBox1 = new javax.swing.JCheckBox();
         btn_P3_RealizarPago = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -291,7 +296,7 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(lblMontoAPagar)
                             .addComponent(txtMontoAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(scrlTablaCuotasAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(btnPagarPrimeraCuota)
                 .addGap(49, 49, 49))
         );
@@ -364,7 +369,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(chkClienteVigente)
                 .addGap(44, 44, 44)
                 .addComponent(btnAgregarCliente)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         panelPrincipal.addTab("Clientes", panelMenuClientes);
@@ -378,89 +383,104 @@ public class Principal extends javax.swing.JFrame {
 
         lbl_P3_seleccioneArriendo.setText("Seleccione arriendo:");
 
-        lst_P3_seleccioneCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        cmbClienteArriendo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Cliente" }));
+        cmbClienteArriendo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbClienteArriendoActionPerformed(evt);
+            }
         });
-        jScrollPane2.setViewportView(jList1);
+
+        jScrollPane2.setViewportView(listArriendos);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "", "Numero", "Valor", "Pagado"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
 
         btn_P3_RealizarPago.setText("Realizar Pago");
 
         jLabel12.setText("PAGOS");
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Pagar cuotas arriendo");
+
         javax.swing.GroupLayout panelMenuPagoCuotasLayout = new javax.swing.GroupLayout(panelMenuPagoCuotas);
         panelMenuPagoCuotas.setLayout(panelMenuPagoCuotasLayout);
         panelMenuPagoCuotasLayout.setHorizontalGroup(
             panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPagoCuotasLayout.createSequentialGroup()
-                .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_P3_RealizarPago))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelMenuPagoCuotasLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(lst_P3_seleccioneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelMenuPagoCuotasLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(btn_P3_mostrarPagosArriendo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                .addComponent(jCheckBox1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
+            .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
+                .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
+                            .addGap(22, 22, 22)
+                            .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lbl_P3_seleccioneArriendo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel12)
-                                .addGap(98, 98, 98)))))
-                .addGap(68, 68, 68))
+                                .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btn_P3_mostrarPagosArriendo)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btn_P3_RealizarPago)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPagoCuotasLayout.createSequentialGroup()
+                                    .addComponent(jLabel12)
+                                    .addGap(148, 148, 148))))
+                        .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
+                            .addGap(125, 125, 125)
+                            .addComponent(jLabel1)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelMenuPagoCuotasLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbClienteArriendo, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(209, 209, 209)))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         panelMenuPagoCuotasLayout.setVerticalGroup(
             panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPagoCuotasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lst_P3_seleccioneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+            .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_P3_seleccioneArriendo, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(btn_P3_mostrarPagosArriendo))
-                    .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPagoCuotasLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27)
+                        .addComponent(cmbClienteArriendo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_P3_seleccioneArriendo)
                         .addGroup(panelMenuPagoCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPagoCuotasLayout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
-                                .addGap(100, 100, 100)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_P3_RealizarPago)
-                .addGap(6, 6, 6))
+                            .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(btn_P3_mostrarPagosArriendo))
+                            .addGroup(panelMenuPagoCuotasLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(59, 59, 59))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuPagoCuotasLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_P3_RealizarPago)
+                        .addGap(21, 21, 21))))
         );
 
         panelPrincipal.addTab("Pagar cuotas", panelMenuPagoCuotas);
@@ -535,14 +555,18 @@ public class Principal extends javax.swing.JFrame {
             return;
         }
         
-        Cliente cliente = new Cliente(cedula, nombre, chkClienteVigente.isSelected());
-        storage.addClient(cliente);
-        txtCedulaCliente.setText("");
-        txtNombreCliente.setText("");
-        chkClienteVigente.setSelected(false);
-        renderCmbClientes();
-        panelPrincipal.setSelectedIndex(0);
-        showMessage( "Cliente registrado con exito");
+        try {
+            Cliente cliente = new Cliente(cedula, nombre, chkClienteVigente.isSelected());
+            storage.addClient(cliente);
+            txtCedulaCliente.setText("");
+            txtNombreCliente.setText("");
+            chkClienteVigente.setSelected(false);
+            renderCmbClientes();
+            panelPrincipal.setSelectedIndex(0);
+            showMessage( "Cliente registrado con exito");
+        } catch (Exception e) {
+            showError(e.getMessage());
+        }
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
 
     private void btnGuardarArriendoYMostrarCuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarArriendoYMostrarCuotasActionPerformed
@@ -608,15 +632,31 @@ public class Principal extends javax.swing.JFrame {
         txtPrecioPorDia.setText("");
         */
         renderCmbClientes();
+        renderCmbClientesArriendo();
         renderCmbAutomovil();
         txtMontoAPagar.setText(String.valueOf(arriendoCuota.obtenerMontoAPagar(precioPorDia)));
         showMessage("Arriendo coutas guardado correctamente");
     }//GEN-LAST:event_btnGuardarArriendoYMostrarCuotasActionPerformed
+
+    private void cmbClienteArriendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClienteArriendoActionPerformed
+        String selectedClient = (String) cmbClienteArriendo.getSelectedItem();
+        modeloDatos.removeAllElements();
+        
+        if (DEFAULT_CLIENT_OPTION.equals(selectedClient)) {
+            return;
+        }
+        
+        String cedula = selectedClient.split(" - ") [0];
+        var arriendos = storage.getArriendosByclient(cedula).stream()
+                .map(e -> e.getNumArriendo() + " - " + e.getVehiculo().getPatente())
+                .toList();
+        
+        modeloDatos.addAll(arriendos);
+    }//GEN-LAST:event_cmbClienteArriendoActionPerformed
     
     private int getAsInt(JTextField field) {
         try {
             var value = field.getText().trim();
-            System.out.println("value: " + value);
             return Integer.parseInt(value);
         } catch(Exception e){
             System.out.println("Error: " + e.getMessage());
@@ -632,6 +672,18 @@ public class Principal extends javax.swing.JFrame {
         options.add(DEFAULT_CLIENT_OPTION);
         options.addAll(items);
         cmbClientes.setModel(new DefaultComboBoxModel<>(options.toArray(String[]::new)));
+    }
+    
+    private void renderCmbClientesArriendo() {
+        var items = storage.getArriendoCuotaList().stream()
+            .map(ArriendoCuota::getCliente)
+            .map(c -> c.getCedula() + " - " + c.getNombre())
+            .distinct()
+            .toList();
+        var options = new ArrayList<String>();
+        options.add(DEFAULT_CLIENT_OPTION);
+        options.addAll(items);
+        cmbClienteArriendo.setModel(new DefaultComboBoxModel<>(options.toArray(String[]::new)));
     }
     
     private void renderCmbAutomovil() {
@@ -660,14 +712,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btn_P3_mostrarPagosArriendo;
     private javax.swing.JCheckBox chkClienteVigente;
     private javax.swing.JComboBox<String> cmbCars;
+    private javax.swing.JComboBox<String> cmbClienteArriendo;
     private javax.swing.JComboBox<String> cmbClientes;
     private javax.swing.JButton cmbShowAgregarCliente;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
     private javax.swing.JFrame jFrame3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -686,7 +738,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_P2_Clientes;
     private javax.swing.JLabel lbl_P2_Nombre;
     private javax.swing.JLabel lbl_P3_seleccioneArriendo;
-    private javax.swing.JComboBox<String> lst_P3_seleccioneCliente;
+    private javax.swing.JList<String> listArriendos;
     private javax.swing.JPanel panelMenuClientes;
     private javax.swing.JPanel panelMenuPagoCuotas;
     private javax.swing.JPanel panelMenuPrincipal;

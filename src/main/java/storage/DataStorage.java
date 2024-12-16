@@ -70,4 +70,14 @@ public class DataStorage {
     return arriendoCuotaList.size() + 1;
   }
 
+  public List<ArriendoCuota> getArriendoCuotaList() {
+    return arriendoCuotaList;
+  }
+  
+  public List<ArriendoCuota> getArriendosByclient(String cedula) {
+      return arriendoCuotaList.stream()
+              .filter(e -> e.getCliente().getCedula().equals(cedula))
+              .toList();
+  }
+  
 }
